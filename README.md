@@ -28,6 +28,7 @@
 
     ![图片名称](./Demo_image/forwarding.png "Port forwarding")  
 
+
 * Use Extranet attack
 
     ```#python3 XSS_Tool_V3.0.py -t -lp 8080 -rh ***.***.***.*** -rp 10029```
@@ -36,6 +37,7 @@
 
 
 # Use Intranet attack [Now Test]
+-----------------Hacker--------------------------
 * You can use the - lp parameter to specify the port. If you do not write, the default port is 8888
 
 ```#python3 XSS_Tool_V3.0.py```
@@ -44,7 +46,7 @@
 
 * Copy payload and inject XXS injection point
 
-![图片名称](./Demo_image/Runing.png "Run")  
+![图片名称](./Demo_image/Hacking.png "Run")  
 
 ----------------Server Admin------------------------
 
