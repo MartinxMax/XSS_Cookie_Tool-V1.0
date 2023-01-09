@@ -42,7 +42,7 @@
 
 ```#python3 XSS_Tool_V3.4.py```
 
-![图片名称](./Demo_image/Runing2.png "Run")  
+![图片名称](./Demo_image/Runing3.png "Run")  
 
 * Copy payload and inject XXS injection point
 
