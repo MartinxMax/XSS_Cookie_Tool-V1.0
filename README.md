@@ -9,7 +9,7 @@
 
       ```#python3 XSS_Tool_V3.4.py -h```
 
-  ![图片名称](./Demo_image/Help2.png "Help")  
+  ![图片名称](./Demo_image/Help3.png "Help")  
 
   * LAN attack
 
@@ -33,7 +33,7 @@
 
     ```#python3 XSS_Tool_V3.4.py -t -rh http://xxx.xxx.xxx -rp 10029```
 
-    ![图片名称](./Demo_image/Internet1.png "Extranetattack")  
+    ![图片名称](./Demo_image/Internet2.png "Extranetattack")  
 
 
 # Use Intranet attack [Do not push messages Test]
