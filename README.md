@@ -1,4 +1,4 @@
-# XSS steals cookies
+# Martin_XSS_V3.4
 * The current version V3.4 updates the remote push of nails, so that you can receive victim information in real time on Android without having to face the host
 * Update the redirection function, you can use CSRF to create XSS worm attacks
 * Python version 3.6 or above
