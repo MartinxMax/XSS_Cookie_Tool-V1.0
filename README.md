@@ -1,114 +1,108 @@
-# Martin_XSS_V3.4
-* The current version V3.4 updates the remote push of nails, so that you can receive victim information in real time on Android without having to face the host
-* Update the redirection function, you can use CSRF to create XSS worm attacks
+# Martin_XSS_V3.5.2
+* Update redirection module,You can make XSS worms
+* Update Form Hijacking
 * Python version 3.6 or above
 * Obtain the victim's public IP address and cookie
+* Social engineering, obtaining account password
 * Compatible with Windows or Linux
 ## usage method
   * View help information
 
-      ```#python3 XSS_Tool_V3.4.py -h```
+      ```#python3 XSS_Tool_V3.5.2.py -h```
 
-  ![图片名称](./Demo_image/Help3.png "Help")  
+  ![图片名称](./Demo_image/help3.5.2.png)  
 
-  * LAN attack
+  * Intranet attack
 
-      ```#python3 XSS_Tool_V3.4.py -lp (Local port)```
+      ```#python3 XSS_Tool_V3.5.2.py (-lp xxxx)```
+
+![图片名称](./Demo_image/NoPar3.5.2.png )  
+
+![图片名称](./Demo_image/lp3.5.2.png )  
+
 
   * Internet attack
 
-      ```#python3 XSS_Tool_V3.4.py -t -lp (Local port) -rh (Remote host IP) -rp (Remote host port)```
+    ```#python3 XSS_Tool_V3.5.2.py -t -rh [Remote host IP] (-rp Remote host port)```
 
-## Effect demonstration 
- * We will use WordPress-6.1.1 for XSS attack simulation test
+![图片名称](./Demo_image/rh23.5.2.png )  
+
+* Redirect attack
+
+```#python3 XSS_Tool_V3.5.2.py -rd xxxxx```
+
+ ![图片名称](./Demo_image/rd3.5.2.png )  
+* Push Message
+1. 
+    
+```#vim DingTalk.conf```
+
+![图片名称](./Demo_image/dcf13.5.2.png )  
+
+```#python3 XSS_Tool_V3.5.2.py -dcf```
+ ![图片名称](./Demo_image/dcf23.5.2.png )  
+
+2. 
+    ```#python3 XSS_Tool_V3.5.2.py -dt xxx -dk xxx```
+
+ ![图片名称](./Demo_image/dtdk3.5.2.png ) 
+
+# Use Intranet attack [Example: push message module combination]
  * _If your machine has a public IP address, just listen to the local port_
-
-# Use Extranet attack
-* Enable port forwarding (Ngrok is used for demonstration)
-
-    ![图片名称](./Demo_image/forwarding.png "Port forwarding")  
-
-
-* Use Extranet attack
-
-    ```#python3 XSS_Tool_V3.4.py -t -rh http://xxx.xxx.xxx -rp 10029```
-
-    ![图片名称](./Demo_image/Internet2.png "Extranetattack")  
-
-
-# Use Intranet attack [Do not push messages Test]
+ * _You can not specify the port. The default port is 8888_
+ 
 -----------------Hacker--------------------------
-* You can use the - lp parameter to specify the port. If you do not write, the default port is 8888
 
-```#python3 XSS_Tool_V3.4.py```
+```#vim DingTalk.conf```
 
-![图片名称](./Demo_image/Runing3.png "Run")  
+![图片名称](./Demo_image/dcf13.5.2.png)
+
+```#python3 XSS_Tool_V3.5.2.py -dcf```
+
+![图片名称](./Demo_image/WP1.png)  
 
 * Copy payload and inject XXS injection point
 
-![图片名称](./Demo_image/Hacking.png "Run")  
+
 
 ----------------Server Admin------------------------
+* Admin Cookie
 
-* Normal status of administrator
-
-![图片名称](./Demo_image/Admin_no_hack.png "Admin_no_hack")  
+![图片名称](./Demo_image/Admin_no_hack.png )  
 
 * The administrator was hacked to execute malicious code when viewing comments
 
-![图片名称](./Demo_image/Admin_hacked2.png "Admin_hacked2")  
+![图片名称](./Demo_image/WP2.png )  
 
 -----------------Hacker--------------------------
 * Hacker gets the administrator's cookie
 
-![图片名称](./Demo_image/Hack_Get_Cookie3.png "Hack_Get_Cookie")
+![图片名称](./Demo_image/WP3.png)
+* Auto Push Message
 
-# Use Intranet attack[Message push]
-* @1.Use the parameter options - dt and - dk for push settings
+![图片名称](./Demo_image/WP4.jpg)
 
-```#python3 XSS_Tool_V3.4.py -dt xxxxx... -dk xxx```
+# Use Internet attack [Example:Social engineering]
+* Modify code
 
-![图片名称](./Demo_image/HackDT.png "Run")  
+```vim Index.html```
 
-* @2.Or directly use the parameter dcf, provided that you have configured the parameters in the DingTalk.conf file
+![图片名称](./Demo_image/rhhijack3.5.2.png )  
 
+* The victim visits the phishing link
 
-1.You must modify the parameters in the DingTalk.conf file to use the - dcf option
+![图片名称](./Demo_image/loginrhhijack3.5.2.png)
 
-![图片名称](./Demo_image/DingTalk_Config.png "Run")  
+* Wait for submission. The hacker obtains the plaintext account password
 
-2.The - dcf option can be used after configuration
-
-```#python3 XSS_Tool_V3.4.py -dcf```
-
-![图片名称](./Demo_image/Config_OK.png "Run")  
-
-* Copy payload and inject XXS injection point
+![图片名称](./Demo_image/rhhijackOK3.5.2.png)
 
 
+# Use Intranet attack [Example:Redirection+CSRF]
 
-----------Injection is the same as the above demonstration steps---------------
-
-* After the administrator cookie is obtained, it will be automatically pushed to the DingTalk platform
-
-![图片名称](./Demo_image/PUSH.png "Run")  
-
-* Android perspective
-
-![图片名称](./Demo_image/Android.jpg "Run")  
-
-# Use Intranet attack [XSS And CSRF Test]
-
-* CSRF shooting range
-
-![图片名称](./Demo_image/Login_Pikachu.png "Run")  
-
-* Select the parameter - rd to redirect
-
-![图片名称](./Demo_image/CSRF_XSS.png "Run")  
-
-* The administrator accesses and executes malicious code and is redirected
-
-![图片名称](./Demo_image/CSRF_Hacked.png "Run")  
-
-##^^^You can create an XSS worm for network propagation
+* Normal user
+![图片名称](./Demo_image/CSRF1.png)
+* Hacker inject code into web pages
+![图片名称](./Demo_image/CSRF2.png)
+* User data is maliciously modified
+![图片名称](./Demo_image/CSRF3.png)

